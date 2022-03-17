@@ -14,7 +14,7 @@ import Scene from "../../Wolfie2D/Scene/Scene";
 import Timer from "../../Wolfie2D/Timing/Timer";
 import Color from "../../Wolfie2D/Utils/Color";
 import { EaseFunctionType } from "../../Wolfie2D/Utils/EaseFunctions";
-import BalloonController from "../Enemies/BalloonController";
+import BalloonController, { BalloonStates } from "../Enemies/BalloonController";
 import { HW5_Color } from "../hw5_color";
 import { HW5_Events } from "../hw5_enums";
 import HW5_ParticleSystem from "../HW5_ParticleSystem";
@@ -122,6 +122,7 @@ export default class GameLevel extends Scene {
                     {
                         let node = this.sceneGraph.getNode(event.data.get("node"));
                         let other = this.sceneGraph.getNode(event.data.get("other"));
+                        //console.log(node)
 
                         if(node === this.player){
                             // Node is player, other is balloon
@@ -129,7 +130,6 @@ export default class GameLevel extends Scene {
                         } else {
                             // Other is player, node is balloon
                             this.handlePlayerBalloonCollision(<AnimatedSprite>other,<AnimatedSprite>node);
-
                         }
                     }
                     break;
@@ -366,7 +366,8 @@ export default class GameLevel extends Scene {
         this.levelEndArea.color = new Color(0, 0, 0, 0);
     }
 
-    // HOMEWORK 5 - TODO
+    // HOMEWORK 5 - TODO (DONE)
+    
     /*
         Make sure balloons are being set up properly to have triggers so that when they collide
         with players, they send out a trigger event.
@@ -386,10 +387,10 @@ export default class GameLevel extends Scene {
         balloon.addPhysics();
         balloon.addAI(BalloonController, aiOptions);
         balloon.setGroup("balloon");
-
+        balloon.setTrigger("player", HW5_Events.PLAYER_HIT_BALLOON, null) //Kevin added this
     }
 
-    // HOMEWORK 5 - TODO
+    // HOMEWORK 5 - TODO (DONE)
     /**
      * You must implement this method.
      * There are 3 types of collisions:
@@ -416,6 +417,17 @@ export default class GameLevel extends Scene {
      * 
      */
     protected handlePlayerBalloonCollision(player: AnimatedSprite, balloon: AnimatedSprite) {
+        if(player == undefined || balloon == undefined){ //right after a balloon pops, another collision might be detected
+            console.log("Not a collision");
+        }
+        else if((<PlayerController>player._ai).suitColor != (<BalloonController>balloon._ai).color){
+            if(typeof player !== undefined && balloon !== undefined){
+                console.log(player);
+                console.log(balloon);
+                this.emitter.fireEvent(HW5_Events.BALLOON_POPPED, {owner: balloon.id});
+                this.incPlayerLife(-1);
+            }
+        }
     }
 
     /**
