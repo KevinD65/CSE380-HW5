@@ -7,7 +7,7 @@ import Level2 from "./Level2";
 
 export default class Level1 extends GameLevel {
     
-    // HOMEWORK 5 - TODO
+    // HOMEWORK 5 - TODO (DONE)
     /**
      * Add your balloon pop sound here and use it throughout the code
      */
@@ -20,9 +20,10 @@ export default class Level1 extends GameLevel {
         this.load.audio("jump", "hw5_assets/sounds/jump.wav");
         this.load.audio("switch", "hw5_assets/sounds/switch.wav");
         this.load.audio("player_death", "hw5_assets/sounds/player_death.wav");
-        // HOMEWORK 5 - TODO
+        this.load.audio("balloon_pop", "hw5_assets/sounds/pop.mp3")
+        // HOMEWORK 5 - TODO (DONE)
         // You'll want to change this to your level music
-        this.load.audio("level_music", "hw5_assets/music/menu.mp3");
+        this.load.audio("level_music", "hw5_assets/music/spikedMusic.mp3");
     }
 
     // HOMEWORK 5 - TODO

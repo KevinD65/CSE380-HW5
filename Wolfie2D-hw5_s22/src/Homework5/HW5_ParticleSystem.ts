@@ -1,6 +1,8 @@
+import { TweenableProperties } from "../Wolfie2D/Nodes/GameNode";
 import Particle from "../Wolfie2D/Nodes/Graphics/Particle";
+import { TweenEffect } from "../Wolfie2D/Rendering/Animations/AnimationTypes";
 import ParticleSystem from "../Wolfie2D/Rendering/Animations/ParticleSystem";
-import { EaseFunctionType } from "../Wolfie2D/Utils/EaseFunctions";
+import EaseFunctions, { EaseFunctionType } from "../Wolfie2D/Utils/EaseFunctions";
 import RandUtils from "../Wolfie2D/Utils/RandUtils";
 
 // HOMEWORK 5 - TODO
@@ -21,5 +23,26 @@ export default class HW5_ParticleSystem extends ParticleSystem {
 
     setParticleAnimation(particle: Particle) {
         super.setParticleAnimation(particle);
+        particle.vel = RandUtils.randVec(-50, 50, -100, 100);
+
+        let gravity = new TweenEffect();
+        gravity.property = TweenableProperties.posY;
+        gravity.resetOnComplete = false;
+        gravity.start = 1;
+        gravity.end = 10;
+        gravity.ease = EaseFunctionType.IN_OUT_QUAD;
+
+        let fadeOut = new TweenEffect();
+        fadeOut.property = TweenableProperties.alpha;
+        fadeOut.resetOnComplete = false;
+        fadeOut.start = 1;
+        fadeOut.end = 0;
+        fadeOut.ease = EaseFunctionType.IN_OUT_QUAD;
+
+        particle.tweens.add("active", {
+            startDelay: 0,
+            duration: this.lifetime,
+            effects: [gravity, fadeOut]
+        });
     }
 }

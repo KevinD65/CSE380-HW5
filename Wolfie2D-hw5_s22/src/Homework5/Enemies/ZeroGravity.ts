@@ -2,6 +2,7 @@ import Vec2 from "../../Wolfie2D/DataTypes/Vec2";
 import GameEvent from "../../Wolfie2D/Events/GameEvent";
 import AnimatedSprite from "../../Wolfie2D/Nodes/Sprites/AnimatedSprite";
 import { HW5_Events } from "../hw5_enums";
+import BalloonController from "./BalloonController";
 import BalloonState from "./BalloonState";
 
 // HOMEWORK 5 - TODO
@@ -22,6 +23,17 @@ import BalloonState from "./BalloonState";
  */
 export default class ZeroGravity extends BalloonState {
 	onEnter(): void {
+		this.gravity = 0;
+
+	}
+
+	update(deltaT: number): void {/*
+		super.update(deltaT);
+
+		let distanceFromPlayer = <BalloonController>this.parent.
+		this.parent.velocity.x = this.parent.direction.x * this.parent.speed;
+
+		this.owner.move(this.parent.velocity.scaled(deltaT));*/
 	}
 
 	onExit(): Record<string, any> {

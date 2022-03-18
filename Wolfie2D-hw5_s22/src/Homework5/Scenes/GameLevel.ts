@@ -425,6 +425,7 @@ export default class GameLevel extends Scene {
                 console.log(player);
                 console.log(balloon);
                 this.emitter.fireEvent(HW5_Events.BALLOON_POPPED, {owner: balloon.id});
+                this.emitter.fireEvent(GameEventType.PLAY_SOUND, {key: "balloon_pop", loop: false});
                 this.incPlayerLife(-1);
             }
         }
