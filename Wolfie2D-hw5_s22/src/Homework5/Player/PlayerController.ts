@@ -37,7 +37,7 @@ export default class PlayerController extends StateMachineAI {
     tilemap: OrthogonalTilemap;
     suitColor: HW5_Color;
 
-    // HOMEWORK 5 - TODO
+    // HOMEWORK 5 - TODO (DONE)
     /**
      * Implement a death animation for the player using tweens. The animation rotate the player around itself multiple times
      * over the tween duration, as well as fading out the alpha value of the player. The tween should also make use of the
@@ -69,6 +69,26 @@ export default class PlayerController extends StateMachineAI {
                     ease: EaseFunctionType.IN_OUT_QUAD
                 }
             ]
+        });
+
+        owner.tweens.add("death", {
+            startDelay: 0,
+            duration: 500,
+            effects: [
+                {
+                    property: "rotation",
+                    start: 0,
+                    end: 100*Math.PI,
+                    ease: EaseFunctionType.IN_OUT_QUAD
+                },
+                {
+                    property: "alpha",
+                    start: 1,
+                    end: 0,
+                    ease: EaseFunctionType.IN_OUT_QUAD
+                }
+            ],
+            onEnd: HW5_Events.PLAYER_KILLED
         });
 
     }
