@@ -55,7 +55,6 @@ export default abstract class BalloonState extends State {
 		}
 		else{
 			this.parent.playerPos = event.data.get("position");
-			console.log("YUR");
 		}
 	}
 
