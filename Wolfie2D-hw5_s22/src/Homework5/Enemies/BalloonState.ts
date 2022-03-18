@@ -1,5 +1,6 @@
 import State from "../../Wolfie2D/DataTypes/State/State";
 import StateMachine from "../../Wolfie2D/DataTypes/State/StateMachine";
+import Vec2 from "../../Wolfie2D/DataTypes/Vec2";
 import GameEvent from "../../Wolfie2D/Events/GameEvent";
 import GameNode from "../../Wolfie2D/Nodes/GameNode";
 import AnimatedSprite from "../../Wolfie2D/Nodes/Sprites/AnimatedSprite";
@@ -12,6 +13,7 @@ export default abstract class BalloonState extends State {
 	owner: GameNode;
 	gravity: number = 500;
 	parent: BalloonController;
+	//playerPos: Vec2; //KEVIN ADDED THIS
 
 	constructor(parent: StateMachine, owner: GameNode) {
 		super(parent);
@@ -50,6 +52,10 @@ export default abstract class BalloonState extends State {
 					}
 				} 
 			}
+		}
+		else{
+			this.parent.playerPos = event.data.get("position");
+			console.log("YUR");
 		}
 	}
 

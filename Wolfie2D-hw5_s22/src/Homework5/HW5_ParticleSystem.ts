@@ -5,7 +5,7 @@ import ParticleSystem from "../Wolfie2D/Rendering/Animations/ParticleSystem";
 import EaseFunctions, { EaseFunctionType } from "../Wolfie2D/Utils/EaseFunctions";
 import RandUtils from "../Wolfie2D/Utils/RandUtils";
 
-// HOMEWORK 5 - TODO
+// HOMEWORK 5 - TODO (DONE)
 /**
  * This particle system extends the base ParticleSystem class, and I reccommend you look at some of the implementation, 
  * at least for the default setParticleAnimation()
@@ -21,28 +21,39 @@ import RandUtils from "../Wolfie2D/Utils/RandUtils";
  */
 export default class HW5_ParticleSystem extends ParticleSystem {
 
+    
     setParticleAnimation(particle: Particle) {
         super.setParticleAnimation(particle);
-        particle.vel = RandUtils.randVec(-50, 50, -100, 100);
-
-        let gravity = new TweenEffect();
-        gravity.property = TweenableProperties.posY;
-        gravity.resetOnComplete = false;
-        gravity.start = 1;
-        gravity.end = 10;
-        gravity.ease = EaseFunctionType.IN_OUT_QUAD;
-
-        let fadeOut = new TweenEffect();
-        fadeOut.property = TweenableProperties.alpha;
-        fadeOut.resetOnComplete = false;
-        fadeOut.start = 1;
-        fadeOut.end = 0;
-        fadeOut.ease = EaseFunctionType.IN_OUT_QUAD;
+        particle.vel = RandUtils.randVec(-50, 50, -1, -1);
 
         particle.tweens.add("active", {
             startDelay: 0,
             duration: this.lifetime,
-            effects: [gravity, fadeOut]
+            effects: [
+                {
+                    property: "velY",
+                    resetOnComplete: false,
+                    start: particle.getLastVelocity().y,
+                    end: 1000 * particle.mass,
+                    ease: EaseFunctionType.IN_OUT_QUAD
+                },
+                {
+                    property: TweenableProperties.alpha,
+                    resetOnComplete: false,
+                    start: 1,
+                    end: 0,
+                    ease: EaseFunctionType.IN_OUT_QUAD
+                }
+            ]
         });
     }
+    /*
+    setParticleAnimation(particle: Particle) {
+        particle.vel = RandUtils.randVec(-50, 50, -100, 100);
+        particle.tweens.add("active", {
+            startDelay: 0,
+            duration: this.lifetime,
+            effects: []
+        });
+    }*/
 }

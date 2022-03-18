@@ -423,7 +423,15 @@ export default class GameLevel extends Scene {
         else if((<PlayerController>player._ai).suitColor != (<BalloonController>balloon._ai).color){
             if(typeof player !== undefined && balloon !== undefined){
                 console.log(player);
-                console.log(balloon);
+                
+                let myColor = (<BalloonController>balloon._ai).color;
+                if(myColor == HW5_Color.RED)
+                    this.system.changeColor(Color.RED);
+                else if(myColor == HW5_Color.BLUE)
+                    this.system.changeColor(Color.BLUE);
+                else
+                    this.system.changeColor(Color.GREEN);
+
                 this.emitter.fireEvent(HW5_Events.BALLOON_POPPED, {owner: balloon.id});
                 this.emitter.fireEvent(GameEventType.PLAY_SOUND, {key: "balloon_pop", loop: false});
                 this.incPlayerLife(-1);

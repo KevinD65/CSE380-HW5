@@ -21,6 +21,7 @@ export default class BalloonController extends StateMachineAI {
 	ySpeed: number = 700;
 	gravity: number = 1000;
 	color: HW5_Color;
+	playerPos: Vec2; //KEVIN ADDED THIS
 
 	initializeAI(owner: GameNode, options: Record<string, any>){
 		this.owner = owner;

@@ -5,7 +5,7 @@ import { HW5_Events } from "../hw5_enums";
 import BalloonController from "./BalloonController";
 import BalloonState from "./BalloonState";
 
-// HOMEWORK 5 - TODO
+// HOMEWORK 5 - TODO (DONE)
 /**
  * For this homework, you'll have to implement an additional state to the AI from scratch.
  * 
@@ -24,16 +24,29 @@ import BalloonState from "./BalloonState";
 export default class ZeroGravity extends BalloonState {
 	onEnter(): void {
 		this.gravity = 0;
-
 	}
 
-	update(deltaT: number): void {/*
+	update(deltaT: number): void {
 		super.update(deltaT);
 
-		let distanceFromPlayer = <BalloonController>this.parent.
-		this.parent.velocity.x = this.parent.direction.x * this.parent.speed;
+		//THIS CONDITIONAL TAKES CARE OF AN ERROR CASE WHERE THE PLAYER HASN'T MOVED YET (NO PLAYER POSITION YET) BUT THE ZERO GRAVITY IS ATTEMPTING TO CALCULCATE THE DISTANCE TO THE PLAYER
+		let distanceFromPlayer;
+		if(this.parent.playerPos != undefined){
+			distanceFromPlayer = this.parent.playerPos.distanceTo((<BalloonController>this.parent).owner.position);
+		}
+		else{
+			distanceFromPlayer = 321;
+		}
 
-		this.owner.move(this.parent.velocity.scaled(deltaT));*/
+		//IF THE PLAYER IS 10 TILES AWAY (320 PIXELS)
+		if(distanceFromPlayer <= 320){
+			this.parent.velocity.x = this.parent.direction.x * this.parent.speed * 2;
+		}
+		else{
+			this.parent.velocity.x = this.parent.direction.x * this.parent.speed;
+		}
+
+		this.owner.move(this.parent.velocity.scaled(deltaT));
 	}
 
 	onExit(): Record<string, any> {
