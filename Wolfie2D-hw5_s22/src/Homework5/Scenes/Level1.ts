@@ -20,13 +20,13 @@ export default class Level1 extends GameLevel {
         this.load.audio("jump", "hw5_assets/sounds/jump.wav");
         this.load.audio("switch", "hw5_assets/sounds/switch.wav");
         this.load.audio("player_death", "hw5_assets/sounds/player_death.wav");
-        this.load.audio("balloon_pop", "hw5_assets/sounds/pop.mp3")
+        this.load.audio("balloon_pop", "hw5_assets/sounds/pop.mp3");
         // HOMEWORK 5 - TODO (DONE)
         // You'll want to change this to your level music
         this.load.audio("level_music", "hw5_assets/music/spikedMusic.mp3");
     }
 
-    // HOMEWORK 5 - TODO
+    // HOMEWORK 5 - TODO (DONE)
     /**
      * Decide which resource to keep and which to cull.
      * 
@@ -40,6 +40,15 @@ export default class Level1 extends GameLevel {
      */
     unloadScene(){
         // Keep resources - this is up to you
+        this.resourceManager.keepAudio("jump");
+        this.resourceManager.keepAudio("switch");
+        this.resourceManager.keepAudio("player_death");
+        this.resourceManager.keepAudio("balloon_pop");
+        this.resourceManager.keepAudio("level_music");
+
+        this.resourceManager.keepSpritesheet("player");
+        this.resourceManager.keepSpritesheet("red");
+        this.resourceManager.keepSpritesheet("blue");
     }
 
     startScene(): void {
